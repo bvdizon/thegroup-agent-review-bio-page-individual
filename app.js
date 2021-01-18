@@ -18,10 +18,14 @@ const fetchReviews = async () => {
 
 const processReviews = (arr) => {
   const reviews = arr.feed.entry;
+  console.log(reviews);
 
   // itirating on fetched array of data
   reviews.forEach((review) => {
     agentReviews.innerHTML += '';
+
+    const rating = parseInt(review.gsx$stars.$t);
+
     // conditional check to show reviews to specific agent
     if (review.gsx$reviewedagent.$t === agent) {
       let html = `
@@ -32,7 +36,7 @@ const processReviews = (arr) => {
           target="_blank"
           >${review.gsx$source.$t}</a
           ><br />
-          <span style="color: orange">★★★★★</span><br /><strong>Positive</strong>:
+          <span style="color: orange">★★★★★</span><br />
           ${review.gsx$review.$t}
       </p>
       `;
@@ -47,3 +51,6 @@ const processReviews = (arr) => {
 fetchReviews()
   .then((reviews) => processReviews(reviews))
   .catch((err) => console.log(err));
+
+const stars = `<span style="color: orange">${starsCount}</span>`;
+for (let i = 0; i < 5; i++) {}
